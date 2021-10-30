@@ -19,6 +19,7 @@ class CreateParkersTable extends Migration
             $table->unsignedInteger('member_number')->unique();
             $table->char('ktp_number', 16)->unique();
             $table->text('address');
+            $table->string('password');
             $table->timestamps();
         });
     }

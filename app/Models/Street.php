@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Street extends Model
 {
     use HasFactory;
+
+    public function devices()
+    {
+        return $this->hasMany(Device::class);
+    }
 }

@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Log extends Model
 {
     use HasFactory;
+
+    public function device()
+    {
+        return $this->belongsTo(Device::class);
+    }
+
+    public function parker()
+    {
+        return $this->belongsTo(Parker::class);
+    }
 }
