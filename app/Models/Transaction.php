@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+    
+    protected $casts = [
+        'in_time' => 'datetime:Y-m-d',
+        'out_time' => 'datetime:Y-m-d'
+    ];
 
     public function vehicle()
     {
