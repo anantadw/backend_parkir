@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/transactions/cars', [TransactionController::class, 'cars']);
+Route::get('/transactions/motorcycles', [TransactionController::class, 'motorcycles']);
+Route::apiResource('transactions', TransactionController::class)->except(['index', 'destroy']);
