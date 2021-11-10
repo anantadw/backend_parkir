@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ParkerController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [TransactionController::class, 'index'])->name('home');
-Route::get('/parkers', function () {
-    return view('dashboard.parker');
-})->name('parker');
+Route::get('/parkers', [ParkerController::class, 'index'])->name('parker');

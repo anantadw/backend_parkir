@@ -9,6 +9,10 @@ class Log extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'time' => 'datetime:Y-m-d',
+    ];
+
     public function device()
     {
         return $this->belongsTo(Device::class);
