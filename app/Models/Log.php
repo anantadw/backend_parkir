@@ -9,6 +9,12 @@ class Log extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'device_id',
+        'parker_id',
+        'time'
+    ];
+
     public function device()
     {
         return $this->belongsTo(Device::class);
