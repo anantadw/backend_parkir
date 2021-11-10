@@ -28,6 +28,7 @@ class TransactionController extends \App\Http\Controllers\Controller
     public function cars()
     {
         return response()->json([
+            'status' => true,
             'data' => Transaction::where(['vehicle_id' => 1, 'status' => 'in'])->get()
         ]);
     }
@@ -40,6 +41,7 @@ class TransactionController extends \App\Http\Controllers\Controller
     public function motorcycles()
     {
         return response()->json([
+            'status' => true,
             'data' => Transaction::where(['vehicle_id' => 2, 'status' => 'in'])->get()
         ]);
     }
@@ -67,12 +69,12 @@ class TransactionController extends \App\Http\Controllers\Controller
         if ($transaction->save()) {
             return response()->json([
                 'status' => true,
-                'message' => 'berhasil disimpan'
+                'message' => 'Success. Data saved.'
             ]);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'gagal disimpan'
+                'message' => 'Failed. Data not saved.'
             ]);
         }
     }
@@ -86,6 +88,7 @@ class TransactionController extends \App\Http\Controllers\Controller
     public function show(Transaction $transaction)
     {
         return response()->json([
+            'status' => true,
             'data' => $transaction
         ]);
     }
@@ -109,12 +112,12 @@ class TransactionController extends \App\Http\Controllers\Controller
         if ($transaction->save()) {
             return response()->json([
                 'status' => true,
-                'message' => 'berhasil diubah'
+                'message' => 'Success. Data updated.'
             ]);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'gagal diubah'
+                'message' => 'Failed. Data not updated.'
             ]);
         }
     }
