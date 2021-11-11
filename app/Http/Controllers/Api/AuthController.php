@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Log;
 use App\Models\Parker;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +36,10 @@ class AuthController extends Controller
             }
 
             $token = $parker->createToken($parker->log->device_id)->plainTextToken;
+            
+            $log = Log::where('parker_id', $parker->id)->first();
+            $log->time = Carbon::now();
+            $log->save();
 
             return response()->json([
                 'status' => true,
