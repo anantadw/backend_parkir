@@ -44,7 +44,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Login success.',
-                'parker_id' => $parker->id,
+                'parker' => $parker,
                 'token' => $token
             ]);
         }
