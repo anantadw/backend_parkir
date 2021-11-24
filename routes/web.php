@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TransactionController::class, 'index'])->name('home');
 Route::get('/parkers', [ParkerController::class, 'index'])->name('parker');
+Route::get('/logs', [ParkerController::class, 'index'])->name('log');

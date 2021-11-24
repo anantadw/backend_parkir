@@ -7,12 +7,16 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      'sans': ['Poppins', 'ui-sans-serif', 'system-ui'],
+    },
     extend: {
       colors: {
         'hijau' : '#3E7C17',
         'hijau-tua' : '#125C13',
         'kuning' : '#F4A442',
-        'cream' : '#E8E1D9'
+        'cream' : '#E8E1D9',
+        'cream-dark' : '#a88e70',
       }
     },
   },

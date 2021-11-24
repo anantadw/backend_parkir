@@ -53,7 +53,7 @@
                         {{ $parker->address }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $parker->log->time->locale('id')->isoFormat('ddd, DD-MM-YYYY') }}
+                        {{ $parker->log->time->locale('id')->Format('d-M-Y H:m:s') }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ $parker->log->device->imei }}

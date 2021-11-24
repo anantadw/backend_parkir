@@ -11,31 +11,28 @@
         <table class="min-w-full divide-y divide-gray-200 border">
           <thead class="bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
+              <th scope="col" class="px-4 py-3 text-gray-700">
                 No
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
-                Nama Juru Parkir
+              <th scope="col" class="px-6 py-3 text-gray-700">
+                Juru Parkir
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
+              <th scope="col" class="px-6 py-3 text-gray-700">
                 Kendaraan
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
-                Nomor Plat
+              <th scope="col" class="px-6 py-3 text-gray-700">
+                Plat Nomor
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
-                Hari/Tanggal
-              </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
+              <th scope="col" class="px-6 py-3 text-gray-700">
                 Waktu Masuk
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
+              <th scope="col" class="px-6 py-3 text-gray-700">
                 Waktu Keluar
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
+              <th scope="col" class="px-6 py-3 text-gray-700">
                 Status
               </th>
-              <th scope="col" class="px-6 py-3 text-xs font-bold text-base text-gray-700 uppercase">
+              <th scope="col" class="px-6 py-3 text-gray-700">
                 Total Harga
               </th>
             </tr>
@@ -56,10 +53,7 @@
                         {{ $transaction->license_plate }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $transaction->created_at->locale('id')->isoFormat('ddd, DD-MM-YYYY') }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $transaction->in_time->format('H:i') }}
+                        {{ $transaction->in_time->format('d-M-Y H:i:s') }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->format('H:i')}}
