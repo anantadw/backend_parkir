@@ -12,6 +12,12 @@ class Log extends Model
     protected $casts = [
         'time' => 'datetime:Y-m-d',
     ];
+    
+    protected $fillable = [
+        'device_id',
+        'parker_id',
+        'time'
+    ];
 
     public function device()
     {

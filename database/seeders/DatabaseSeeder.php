@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Device;
+use App\Models\Log;
 use App\Models\Parker;
 use App\Models\Street;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,6 +36,14 @@ class DatabaseSeeder extends Seeder
         Parker::factory(3)->create();
 
         Device::factory(3)->create();
+
+        for ($i = 1; $i <= 3; $i++) {
+            Log::create([
+                'device_id' => $i,
+                'parker_id' => $i,
+                'time' => Carbon::now()
+            ]);
+        }
 
     }
 }
