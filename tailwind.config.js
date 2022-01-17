@@ -17,6 +17,9 @@ module.exports = {
         'kuning' : '#F4A442',
         'cream' : '#E8E1D9',
         'cream-dark' : '#a88e70',
+      },
+      minWidth:{
+        '64' : '16rem',
       }
     },
   },

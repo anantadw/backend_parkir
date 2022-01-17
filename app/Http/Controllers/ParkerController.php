@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Parker;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class ParkerController extends Controller
@@ -15,6 +16,8 @@ class ParkerController extends Controller
     public function index()
     {
         $parkers = Parker::all();
+        $logs = Log::all();
+        // dd($logs);
         // $transactions = Transaction::all();
         return view('dashboard.parker', [
             'parkers' => $parkers
