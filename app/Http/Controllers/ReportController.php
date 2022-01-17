@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
-class TransactionController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +15,21 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with(['device', 'device.log', 'device.log.parker'])
-                        ->orderBy('id','desc')->get();
-        // $transactions = Transaction::all();
-        return view('dashboard.home', [
-            'transactions' => $transactions
+        $currentTime = Carbon::now();
+        $transactions = Transaction::whereNotNull('total_price')
+            ->whereMonth('in_time', $currentTime->month)
+            ->get();
+        $total = 0;
+        foreach ($transactions as $t) {
+            $total += $t->total_price;
+        }
+        return view('dashboard.report', [
+            'transactions' => $transactions,
+            'time' => $currentTime,
+            'total' => $total
         ]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,10 +54,10 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show($id)
     {
         //
     }
@@ -57,10 +65,10 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transaction $transaction)
+    public function edit($id)
     {
         //
     }
@@ -69,10 +77,10 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -80,10 +88,10 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy($id)
     {
         //
     }
