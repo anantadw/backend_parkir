@@ -24,15 +24,15 @@ class AuthController extends Controller
                 'status' => false,
                 'message' => 'Validation error.',
                 'errors' => $validator->errors()
-            ]);
+            ], 400);
         } else {
             $parker = Parker::where('member_number', $request->member_number)->first();
 
             if (!$parker || !Hash::check($request->password, $parker->password)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Login failed. Member number or password is wrong.'
-                ]);
+                    'message' => 'Gagal masuk. Nomor anggota atau kata sandi salah.',
+                ], 400);
             }
 
             $token = $parker->createToken($parker->log->device_id)->plainTextToken;
@@ -43,8 +43,9 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => true,
-                'message' => 'Login success.',
-                'parker' => $parker,
+                'message' => 'Berhasil masuk.',
+                'parker_id' => $parker->id,
+                'parker_name' => $parker->name,
                 'token' => $token
             ]);
         }
@@ -55,8 +56,13 @@ class AuthController extends Controller
         if ($parker->tokens()->delete()) {
             return response()->json([
                 'status' => true,
-                'message' => 'Logout success.'
+                'message' => 'Berhasil keluar.'
             ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal keluar.'
+            ], 400);
         }
     }
 }

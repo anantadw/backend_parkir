@@ -13,36 +13,11 @@ class TransactionController extends \App\Http\Controllers\Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // return response()->json([
-        //     'data' => Transaction::all()
-        // ]);
-    }
-
-    /**
-     * Display a listing of the resource, vehicle = car and status = in.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function cars()
+    public function index($vehicle_id)
     {
         return response()->json([
             'status' => true,
-            'data' => Transaction::where(['vehicle_id' => 1, 'status' => 'in'])->get()
-        ]);
-    }
-
-    /**
-     * Display a listing of the resource, vehicle = motorcycle and status = in.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function motorcycles()
-    {
-        return response()->json([
-            'status' => true,
-            'data' => Transaction::where(['vehicle_id' => 2, 'status' => 'in'])->get()
+            'data' => Transaction::where(['vehicle_id' => $vehicle_id, 'status' => 'in'])->orderBy('id', 'DESC')->get(['id', 'license_plate'])
         ]);
     }
 
@@ -60,6 +35,14 @@ class TransactionController extends \App\Http\Controllers\Controller
             'license_plate' => 'required',
         ]);
 
+        $check_transaction = Transaction::where(['license_plate' => $request->license_plate, 'status' => 'in', 'vehicle_id' => $request->vehicle_id])->first();
+        if ($check_transaction) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal. Plat nomor sudah terdaftar.'
+            ], 422);
+        }
+
         $transaction = new Transaction();
         $transaction->device_id = $request->device_id;
         $transaction->vehicle_id = $request->vehicle_id;
@@ -69,13 +52,13 @@ class TransactionController extends \App\Http\Controllers\Controller
         if ($transaction->save()) {
             return response()->json([
                 'status' => true,
-                'message' => 'Success. Data saved.'
-            ]);
+                'message' => 'Berhasil. Data disimpan.'
+            ], 201);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Failed. Data not saved.'
-            ]);
+                'message' => 'Gagal. Data tidak disimpan.'
+            ], 400);
         }
     }
 
@@ -89,7 +72,12 @@ class TransactionController extends \App\Http\Controllers\Controller
     {
         return response()->json([
             'status' => true,
-            'data' => $transaction
+            'id' => $transaction->id,
+            'vehicle_id' => $transaction->vehicle_id,
+            'vehicle_price' => $transaction->vehicle->price,
+            'license_plate' => $transaction->license_plate,
+            'in_time' => $transaction->in_time->timestamp,
+            'out_time' => Carbon::now()->timestamp,
         ]);
     }
 
@@ -118,7 +106,7 @@ class TransactionController extends \App\Http\Controllers\Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Failed. Data not updated.'
-            ]);
+            ], 400);
         }
     }
 
