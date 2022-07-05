@@ -31,6 +31,9 @@
                 Waktu Keluar
               </th>
               <th scope="col" class="px-6 py-3 text-gray-700">
+                Lama Waktu
+              </th>
+              <th scope="col" class="px-6 py-3 text-gray-700">
                 Status
               </th>
               <th scope="col" class="px-6 py-3 text-gray-700">
@@ -42,7 +45,7 @@
             @foreach ($transactions as $transaction)
             <tr class="hover:bg-gray-100">
               <td class="px-6 py-4 whitespace-nowrap">
-                {{ $loop->iteration }}
+                {{ $transactions->firstItem() + $loop->index }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 {{ $transaction->device->log->parker->name }}
@@ -54,10 +57,13 @@
                 {{ $transaction->license_plate }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                {{ $transaction->in_time->format('d-M-Y H:i:s') }}
+                {{ $transaction->in_time->translatedFormat('d F Y, H:i') }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->format('H:i')}}
+                {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->translatedFormat('d F Y, H:i')}}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->diffInMinutes($transaction->in_time) . " menit"}}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-3 inline-flex text-xs leading-5 font-semibold rounded-full {{ ($transaction->status == 'in') ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' }}">
@@ -71,6 +77,7 @@
             @endforeach
           </tbody>
         </table>
+        {{ $transactions->links() }}
       </div>
     </div>
   </div>

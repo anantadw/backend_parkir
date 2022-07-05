@@ -15,7 +15,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::with(['device', 'device.log', 'device.log.parker'])
-                        ->orderBy('id','desc')->get();
+                        ->orderBy('id','desc')->paginate(20);
         // $transactions = Transaction::all();
         return view('dashboard.home', [
             'transactions' => $transactions
