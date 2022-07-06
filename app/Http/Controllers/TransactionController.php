@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionsExport;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -14,8 +16,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with(['device', 'device.log', 'device.log.parker'])
-                        ->orderBy('id','desc')->paginate(20);
+        $transactions = Transaction::with(['device', 'device.log', 'device.log.parker'])->latest()->paginate(20);
         // $transactions = Transaction::all();
         return view('dashboard.home', [
             'transactions' => $transactions
@@ -86,5 +87,10 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new TransactionsExport, 'Laporan Transaksi.xlsx');
     }
 }
