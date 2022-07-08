@@ -23,23 +23,22 @@ class DatabaseSeeder extends Seeder
 
         Vehicle::create([
             'name' => 'Mobil',
-            'price' => 3000
+            'price' => 5000
         ]);
 
         Vehicle::create([
             'name' => 'Motor',
-            'price' => 2000
+            'price' => 3000
         ]);
 
-        Street::factory(3)->create();
+        Street::factory(10)->create();
 
-        Parker::factory(3)->create();
+        Parker::factory(10)->create();
 
-        Device::factory(3)->create();
+        // Device::factory(3)->create();
 
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             Log::create([
-                'device_id' => $i,
                 'parker_id' => $i,
                 'time' => Carbon::now()
             ]);

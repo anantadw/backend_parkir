@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('device_id')->constrained();
+            $table->foreignId('parker_id')->constrained();
             $table->foreignId('vehicle_id')->constrained();
             $table->string('license_plate', 8);
             $table->timestamp('in_time');

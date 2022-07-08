@@ -27,7 +27,7 @@ class ParkerFactory extends Factory
             'member_number' => $this->faker->randomNumber(5, true),
             'ktp_number' => $this->faker->nik(),
             'address' => $this->faker->address(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('password'), // '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
         ];
     }
 }
