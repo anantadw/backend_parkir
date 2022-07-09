@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $number_of_data = 10;
         // \App\Models\User::factory(10)->create();
 
         Vehicle::create([
@@ -31,13 +32,11 @@ class DatabaseSeeder extends Seeder
             'price' => 3000
         ]);
 
-        Street::factory(10)->create();
-
-        Parker::factory(10)->create();
+        Parker::factory($number_of_data)->create();
 
         // Device::factory(3)->create();
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= $number_of_data; $i++) {
             Log::create([
                 'parker_id' => $i,
                 'time' => Carbon::now()
