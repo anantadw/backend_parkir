@@ -35,7 +35,7 @@ class AuthController extends Controller
                 ], 400);
             }
 
-            $token = $parker->createToken($parker->log->device_id)->plainTextToken;
+            $token = $parker->createToken($parker->id)->plainTextToken;
             
             $log = Log::where('parker_id', $parker->id)->first();
             $log->time = Carbon::now();

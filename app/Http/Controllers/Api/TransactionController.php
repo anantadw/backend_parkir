@@ -13,11 +13,11 @@ class TransactionController extends \App\Http\Controllers\Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($vehicle_id)
+    public function index($parker_id, $vehicle_id)
     {
         return response()->json([
             'status' => true,
-            'data' => Transaction::where(['vehicle_id' => $vehicle_id, 'status' => 'in'])->orderBy('id', 'DESC')->get(['id', 'license_plate'])
+            'data' => Transaction::where(['parker_id' => $parker_id, 'vehicle_id' => $vehicle_id, 'status' => 'in'])->latest()->get(['id', 'license_plate'])
         ]);
     }
 
@@ -30,7 +30,7 @@ class TransactionController extends \App\Http\Controllers\Controller
     public function store(Request $request)
     {
         $request->validate([
-            'device_id' => 'required',
+            'parker_id' => 'required',
             'vehicle_id' => 'required',
             'license_plate' => 'required',
         ]);
@@ -44,7 +44,7 @@ class TransactionController extends \App\Http\Controllers\Controller
         }
 
         $transaction = new Transaction();
-        $transaction->device_id = $request->device_id;
+        $transaction->parker_id = $request->parker_id;
         $transaction->vehicle_id = $request->vehicle_id;
         $transaction->license_plate = $request->license_plate;
         $transaction->in_time = Carbon::now();

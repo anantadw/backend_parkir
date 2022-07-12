@@ -13,7 +13,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-4 py-3 text-gray-700">
-                                No ID Device
+                                Nama Juru Parkir
                             </th>
                             <th scope="col" class="px-6 py-3 text-gray-700">
                                 Alamat
@@ -30,10 +30,10 @@
                         @foreach ($transactions as $transaction)
                         <tr class="hover:bg-gray-100 text-center">
                             <td class="py-4 whitespace-nowrap">
-                                {{ $transaction->device_id }}
+                                {{ $transaction->parker->name }}
                             </td>
                             <td class="py-4 whitespace-nowrap">
-                                {{ $transaction->device->street->name }}
+                                {{ $transaction->parker->street->name }}
                             </td>
                             <td class="py-4 whitespace-nowrap">
                                 {{ $transaction->license_plate }}

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/transactions/vehicle/{vehicle_id}', [TransactionController::class, 'index']);
+    Route::get('/transactions/parker/{parker_id}/vehicle/{vehicle_id}', [TransactionController::class, 'index']);
     Route::apiResource('transactions', TransactionController::class)->except(['index', 'destroy']);
     Route::post('/logout/{parker}', [AuthController::class, 'logout']);
 });

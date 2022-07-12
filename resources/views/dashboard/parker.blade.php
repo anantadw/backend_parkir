@@ -25,7 +25,7 @@
                 Terakhir Login
               </th>
               <th scope="col" class="py-3 px-2">
-                Imei Device
+                Nama Jalan
               </th>
             </tr>
           </thead>
@@ -43,10 +43,10 @@
               </td>
               @if($parker->log)
               <td class="py-4 whitespace-nowrap">
-                {{ $parker->log->time->locale('id')->Format('d-M-Y H:m:s') }}
+                {{ $parker->log->time->locale('id')->Format('d-M-Y H:i:s') }}
               </td>
               <td class="py-4 whitespace-nowrap">
-                {{ $parker->log->device->imei }}
+                {{ $parker->street->name }}
               </td>
               @else
               <td></td>
