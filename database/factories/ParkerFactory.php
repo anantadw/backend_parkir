@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Parker;
+use App\Models\Street;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 
 class ParkerFactory extends Factory
 {
@@ -24,6 +24,7 @@ class ParkerFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'street_id' => Street::factory(),
             'member_number' => $this->faker->randomNumber(5, true),
             'ktp_number' => $this->faker->nik(),
             'address' => $this->faker->address(),

@@ -9,8 +9,8 @@ class Street extends Model
 {
     use HasFactory;
 
-    public function devices()
+    public function parker()
     {
-        return $this->hasMany(Device::class);
+        return $this->hasOne(Parker::class);
     }
 }

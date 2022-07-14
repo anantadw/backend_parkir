@@ -19,27 +19,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $number_of_data = 10;
         // \App\Models\User::factory(10)->create();
 
         Vehicle::create([
             'name' => 'Mobil',
-            'price' => 3000
+            'price' => 5000
         ]);
 
         Vehicle::create([
             'name' => 'Motor',
-            'price' => 2000
+            'price' => 3000
         ]);
 
-        Street::factory(3)->create();
+        Parker::factory($number_of_data)->create();
 
-        Parker::factory(3)->create();
+        // Device::factory(3)->create();
 
-        Device::factory(3)->create();
-
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= $number_of_data; $i++) {
             Log::create([
-                'device_id' => $i,
                 'parker_id' => $i,
                 'time' => Carbon::now()
             ]);

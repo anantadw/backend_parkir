@@ -14,4 +14,14 @@ class Parker extends Model
     {
         return $this->hasOne(Log::class);
     }
+
+    public function street()
+    {
+        return $this->belongsTo(Street::class);
+    }
+
+    public function transactions()
+    {
+        $this->hasMany(Transaction::class);
+    }
 }

@@ -14,15 +14,9 @@ class Log extends Model
     ];
     
     protected $fillable = [
-        'device_id',
         'parker_id',
         'time'
     ];
-
-    public function device()
-    {
-        return $this->belongsTo(Device::class);
-    }
 
     public function parker()
     {

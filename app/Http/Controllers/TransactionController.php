@@ -16,7 +16,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with(['device', 'device.log', 'device.log.parker'])->latest()->paginate(20);
+        $transactions = Transaction::with(['parker', 'vehicle'])->latest()->paginate(20);
         // $transactions = Transaction::all();
         return view('dashboard.home', [
             'transactions' => $transactions

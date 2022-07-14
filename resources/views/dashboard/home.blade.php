@@ -48,7 +48,7 @@
                 {{ $transactions->firstItem() + $loop->index }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                {{ $transaction->device->log->parker->name }}
+                {{ $transaction->parker->name }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 {{ $transaction->vehicle->name }}
@@ -82,9 +82,4 @@
     </div>
   </div>
 </div>
-
 @endsection
-
-@push('script')
-
-@endpush

@@ -16,13 +16,13 @@ class ReportController extends Controller
     public function index()
     {
         $currentTime = Carbon::now();
-        $transactions = Transaction::whereNotNull('total_price')
-            ->whereMonth('in_time', $currentTime->month)
-            ->get();
+        $transactions = Transaction::whereNotNull('total_price')->whereMonth('in_time', $currentTime->month)->get();
         $total = 0;
+
         foreach ($transactions as $t) {
             $total += $t->total_price;
         }
+        
         return view('dashboard.report', [
             'transactions' => $transactions,
             'time' => $currentTime,

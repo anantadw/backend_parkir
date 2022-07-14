@@ -19,8 +19,8 @@ class Transaction extends Model
         return $this->belongsTo(Vehicle::class);
     }
 
-    public function device()
+    public function parker()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsTo(Parker::class);
     }
 }
