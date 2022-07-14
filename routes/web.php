@@ -20,4 +20,3 @@ Route::get('/', [TransactionController::class, 'index'])->name('home');
 Route::get('/export', [TransactionController::class, 'export'])->name('export');
 Route::get('/parkers', [ParkerController::class, 'index'])->name('parker');
 Route::get('/reports', [ReportController::class, 'index'])->name('report');
-Route::get('/logs', [ParkerController::class, 'index'])->name('log');

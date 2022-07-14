@@ -37,12 +37,6 @@
                     </div>
                     <span>Laporan</span>
                 </a>
-                <a href="{{ route('log') }}" class="{{ (Route::is('log') ? 'border-l-2 -ml-8 pl-8' : 'opacity-80') }} hover:opacity-100 flex space-x-4 py-0.5">
-                    <div class="h-6 w-6 grid justify-items-center">
-                        @include('icons.note')
-                    </div>
-                    <span>Log</span>
-                </a>
             </section>
             <div class="text-center absolute bottom-12 w-full left-0">
                 <span id="clock"></span>

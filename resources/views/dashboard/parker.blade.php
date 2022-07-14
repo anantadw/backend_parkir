@@ -33,7 +33,7 @@
             @foreach ($parkers as $parker)
             <tr class="hover:bg-gray-100 text-center">
               <td class="py-4 whitespace-nowrap">
-                {{ $loop->iteration }}
+                {{ $parkers->firstItem() + $loop->index }}
               </td>
               <td class="py-4 whitespace-nowrap">
                 {{ $parker->member_number }}
@@ -43,7 +43,7 @@
               </td>
               @if($parker->log)
               <td class="py-4 whitespace-nowrap">
-                {{ $parker->log->time->locale('id')->Format('d-M-Y H:i:s') }}
+                {{ $parker->log->time->translatedFormat('d F Y, H:i') }}
               </td>
               <td class="py-4 whitespace-nowrap">
                 {{ $parker->street->name }}
@@ -61,6 +61,7 @@
             @endforeach
           </tbody>
         </table>
+        {{ $parkers->links() }}
       </div>
     </div>
   </div>

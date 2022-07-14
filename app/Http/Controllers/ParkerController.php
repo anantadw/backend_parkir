@@ -14,7 +14,7 @@ class ParkerController extends Controller
      */
     public function index()
     {
-        $parkers = Parker::all();
+        $parkers = Parker::with(['street', 'log'])->paginate(20);
         // dd($logs);
         // $transactions = Transaction::all();
         return view('dashboard.parker', [
