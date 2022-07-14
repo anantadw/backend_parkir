@@ -9,17 +9,18 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths, WithHeadings, WithMapping
+class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths, WithHeadings, WithMapping, WithColumnFormatting
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Transaction::all();
+        return Transaction::with(['vehicle', 'parker'])->get();
     }
 
     public function styles(Worksheet $sheet)
@@ -37,8 +38,8 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
             'A' => 40,
             'B' => 15,
             'C' => 20,
-            'D' => 25,
-            'E' => 25,
+            'D' => 30,
+            'E' => 30,
             'F' => 20,
             'G' => 15,
             'H' => 15,
@@ -62,7 +63,7 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     public function map($transaction): array
     {
         return [
-            $transaction->device->log->parker->name,
+            $transaction->parker->name,
             $transaction->vehicle->name,
             $transaction->license_plate,
             Date::dateTimeToExcel($transaction->in_time),
@@ -76,9 +77,8 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     public function columnFormats(): array
     {
         return [
-            'D' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm.ss',
-            'E' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm.ss',
-            'H' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE
+            'D' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm',
+            'E' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm',
         ];
     }
 }

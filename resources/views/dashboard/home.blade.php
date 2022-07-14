@@ -4,6 +4,8 @@
 <div class="font-bold text-3xl">Data Transaksi</div>
 <x-tinjauan title1="penghasilan hari ini" number1="1.500.000" title2="penghasilan bulan ini" number2="112.500.000" title3="transaksi dilakukan" number3="25.000" />
 
+<a href="{{ route('export') }}" class="inline-block bg-hijau px-5 py-2 rounded-full text-white mt-10 hover:bg-hijau-tua">Cetak Excel</a>
+
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col mt-9">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

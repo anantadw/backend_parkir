@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\TransactionsExport;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -91,6 +92,7 @@ class TransactionController extends Controller
 
     public function export()
     {
-        return Excel::download(new TransactionsExport, 'Laporan Transaksi.xlsx');
+        $time = Carbon::now();
+        return Excel::download(new TransactionsExport, 'Laporan Transaksi ' . $time->monthName . ' ' . $time->year . '.xlsx');
     }
 }
