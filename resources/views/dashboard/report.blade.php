@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="font-bold text-3xl">Laporan pendapatan parkir</div>
+<div class="font-bold text-3xl">Laporan Pendapatan</div>
 <div class="">Bulan {{$time->format('F')}} {{$time->format('Y')}}</div>
 
 <!-- This example requires Tailwind CSS v2.0+ -->
@@ -12,6 +12,9 @@
                 <table class="min-w-full divide-y divide-gray-200 border">
                     <thead class="bg-gray-50">
                         <tr>
+                            <th scope="col" class="px-4 py-3 text-gray-700">
+                                No
+                            </th>
                             <th scope="col" class="px-4 py-3 text-gray-700">
                                 Nama Juru Parkir
                             </th>
@@ -30,6 +33,9 @@
                         @foreach ($transactions as $transaction)
                         <tr class="hover:bg-gray-100 text-center">
                             <td class="py-4 whitespace-nowrap">
+                                {{ $transactions->firstItem() + $loop->index }}
+                            </td>
+                            <td class="py-4 whitespace-nowrap">
                                 {{ $transaction->parker->name }}
                             </td>
                             <td class="py-4 whitespace-nowrap">
@@ -46,6 +52,7 @@
                         <tr class="bg-gray-300">
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td class="font-bold">Grand Total</td>
                             <td>{{$total}}</td>
                         </tr>
@@ -53,6 +60,7 @@
                     <tfoot>
                     </tfoot>
                 </table>
+                {{ $transactions->links() }}
             </div>
         </div>
     </div>

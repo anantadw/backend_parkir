@@ -16,7 +16,7 @@ class ReportController extends Controller
     public function index()
     {
         $currentTime = Carbon::now();
-        $transactions = Transaction::whereNotNull('total_price')->whereMonth('in_time', $currentTime->month)->get();
+        $transactions = Transaction::with(['parker', 'parker.street'])->whereNotNull('total_price')->whereMonth('in_time', $currentTime->month)->paginate(20);
         $total = 0;
 
         foreach ($transactions as $t) {
