@@ -4,7 +4,32 @@
 <div class="font-bold text-3xl">Data Transaksi</div>
 <x-tinjauan title1="penghasilan hari ini" number1="1.500.000" title2="penghasilan bulan ini" number2="112.500.000" title3="transaksi dilakukan" number3="25.000" />
 
-<a href="{{ route('export') }}" class="inline-block bg-hijau px-5 py-2 rounded-full text-white mt-10 hover:bg-hijau-tua">Cetak Excel</a>
+<form action="{{ route('dashboard') }}" method="GET" class="flex align-middle my-10">
+  <div class="mr-10">
+    <label for="year" class="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-400">Pilih Tahun</label>
+    <select onchange="this.form.submit()" id="year" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option value="2022">2022</option>
+    </select>
+  </div>
+  <div class="mr-10">
+    <label for="month" class="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-400">Pilih Bulan</label>
+    <select onchange="this.form.submit()" id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      <option value="1">Januari</option>
+      <option value="2">Februari</option>
+      <option value="3">Maret</option>
+      <option value="4">April</option>
+      <option value="5">Mei</option>
+      <option value="6">Juni</option>
+      <option value="7">Juli</option>
+      <option value="8">Agustus</option>
+      <option value="9">September</option>
+      <option value="10">Oktober</option>
+      <option value="11">November</option>
+      <option value="12">Desember</option>
+    </select>
+  </div>
+  <a href="{{ route('export') }}" class="bg-hijau px-5 py-2 rounded-full text-white hover:bg-hijau-tua">Cetak Excel</a>
+</form>
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col mt-9">

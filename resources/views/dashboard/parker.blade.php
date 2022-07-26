@@ -53,7 +53,7 @@
               <td></td>
               @endif
               <td class="py-4 whitespace-nowrap">
-                <a href="{{ route('home') }}" class="text-sm underline text-hijau-tua hover:text-hijau transition">
+                <a href="#" class="text-sm underline text-hijau-tua hover:text-hijau transition">
                   details
                 </a>
               </td>

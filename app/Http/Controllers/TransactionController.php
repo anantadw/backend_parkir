@@ -17,7 +17,14 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with(['parker', 'vehicle'])->latest()->paginate(20);
+        $now = Carbon::now();
+
+        $transactions = Transaction::with(['parker', 'vehicle'])->whereYear('created_at', $now->year)->whereMonth('created_at', $now->month)->latest()->paginate(20);
+
+        if (request('year') && request('month')) {
+            $transactions = Transaction::with(['parker', 'vehicle'])->whereYear('created_at', request('year'))->whereMonth('created_at', request('month'))->latest()->paginate(20);
+        }
+
         // $transactions = Transaction::all();
         return view('dashboard.home', [
             'transactions' => $transactions

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [TransactionController::class, 'index'])->name('home');
+Route::get('/dashboard', [TransactionController::class, 'index'])->name('dashboard');
 Route::get('/export', [TransactionController::class, 'export'])->name('export');
 Route::get('/parkers', [ParkerController::class, 'index'])->name('parker');
 Route::get('/reports', [ReportController::class, 'index'])->name('report');

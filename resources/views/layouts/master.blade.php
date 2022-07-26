@@ -19,7 +19,7 @@
                 <hr class="-mx-3 mt-12">
             </header>
             <section class="space-y-6 pt-6">
-                <a href="{{ route('home') }}" class="{{ (Route::is('home') ? 'border-l-2 -ml-8 pl-8' : 'opacity-50') }} hover:opacity-100 flex space-x-4 py-0.5">
+                <a href="{{ route('dashboard') }}" class="{{ (Route::is('dashboard') ? 'border-l-2 -ml-8 pl-8' : 'opacity-50') }} hover:opacity-100 flex space-x-4 py-0.5">
                     <div class="h-6 w-6 grid justify-items-center">
                         @include('icons.dollar')
                     </div>
