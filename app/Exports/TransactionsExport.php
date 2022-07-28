@@ -15,12 +15,20 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths, WithHeadings, WithMapping, WithColumnFormatting
 {
+    private $year, $month;
+
+    public function __construct(int $year, int $month)
+    {
+        $this->year = $year;
+        $this->month = $month;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Transaction::with(['vehicle', 'parker'])->get();
+        return Transaction::with(['vehicle', 'parker'])->whereYear('created_at', $this->year)->whereMonth('created_at', $this->month)->get();
     }
 
     public function styles(Worksheet $sheet)
@@ -42,7 +50,7 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
             'E' => 30,
             'F' => 20,
             'G' => 15,
-            'H' => 15,
+            'H' => 25,
         ];
     }
 

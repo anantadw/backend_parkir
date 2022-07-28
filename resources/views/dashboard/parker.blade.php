@@ -2,7 +2,7 @@
 
 @section('content')
 <span class="font-bold text-3xl">Data Juru Parkir</span>
-<x-tinjauan title1="sedang aktif" number1="250" title2="tukang parkir terdaftar" number2="1.500" title3="titik penyebaran" number3="25" />
+<x-tinjauan title1="sedang aktif" number1="250" type1="2" title2="tukang parkir terdaftar" number2="1.500" type2="2"/>
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col mt-9">

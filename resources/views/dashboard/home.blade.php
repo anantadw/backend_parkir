@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="font-bold text-3xl">Data Transaksi</div>
-<x-tinjauan title1="penghasilan hari ini" number1="1.500.000" title2="penghasilan bulan ini" number2="112.500.000" title3="transaksi dilakukan" number3="25.000" />
+<x-tinjauan title1="Penghasilan bulan ini" number1="{{ $income }}" type1="1" title2="Transaksi bulan ini" number2="{{ $total_transaction }}" type2="2"/>
 
 <form action="{{ route('dashboard') }}" method="GET" class="flex align-middle my-10">
   <div class="mr-10">
@@ -14,22 +14,22 @@
   <div class="mr-10">
     <label for="month" class="block mb-2 text-lg font-bold text-gray-900 dark:text-gray-400">Pilih Bulan</label>
     <select onchange="this.form.submit()" id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      <option value="1">Januari</option>
-      <option value="2">Februari</option>
-      <option value="3">Maret</option>
-      <option value="4">April</option>
-      <option value="5">Mei</option>
-      <option value="6">Juni</option>
-      <option value="7">Juli</option>
-      <option value="8">Agustus</option>
-      <option value="9">September</option>
-      <option value="10">Oktober</option>
-      <option value="11">November</option>
-      <option value="12">Desember</option>
+      <option value="1" @if (request('month') == 1) selected @endif>Januari</option>
+      <option value="2" @if (request('month') == 2) selected @endif>Februari</option>
+      <option value="3" @if (request('month') == 3) selected @endif>Maret</option>
+      <option value="4" @if (request('month') == 4) selected @endif>April</option>
+      <option value="5" @if (request('month') == 5) selected @endif>Mei</option>
+      <option value="6" @if (request('month') == 6) selected @endif>Juni</option>
+      <option value="7" @if (request('month') == 7) selected @endif>Juli</option>
+      <option value="8" @if (request('month') == 8) selected @endif>Agustus</option>
+      <option value="9" @if (request('month') == 9) selected @endif>September</option>
+      <option value="10" @if (request('month') == 10) selected @endif>Oktober</option>
+      <option value="11" @if (request('month') == 11) selected @endif>November</option>
+      <option value="12" @if (request('month') == 12) selected @endif>Desember</option>
     </select>
   </div>
-  <a href="{{ route('export') }}" class="bg-hijau px-5 py-2 rounded-full text-white hover:bg-hijau-tua">Cetak Excel</a>
 </form>
+<a href="{{ route('export', ['year' => request('year'), 'month' => request('month')]) }}" class="bg-hijau px-5 py-2 rounded-full text-white hover:bg-hijau-tua">Cetak Excel</a>
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col mt-9">
@@ -84,10 +84,10 @@
                 {{ $transaction->license_plate }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                {{ $transaction->in_time->translatedFormat('d F Y, H:i') }}
+                {{ $transaction->in_time->translatedFormat('d F, H:i') }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->translatedFormat('d F Y, H:i')}}
+                {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->translatedFormat('d F, H:i')}}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 {{ ($transaction->out_time == null) ? '--' : $transaction->out_time->diffInMinutes($transaction->in_time) . " menit"}}
@@ -104,7 +104,7 @@
             @endforeach
           </tbody>
         </table>
-        {{ $transactions->links() }}
+        {{ $transactions->appends(request()->query())->links() }}
       </div>
     </div>
   </div>

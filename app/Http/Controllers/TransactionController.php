@@ -17,17 +17,17 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $now = Carbon::now();
-
-        $transactions = Transaction::with(['parker', 'vehicle'])->whereYear('created_at', $now->year)->whereMonth('created_at', $now->month)->latest()->paginate(20);
-
         if (request('year') && request('month')) {
-            $transactions = Transaction::with(['parker', 'vehicle'])->whereYear('created_at', request('year'))->whereMonth('created_at', request('month'))->latest()->paginate(20);
+            $transactions = Transaction::with(['parker', 'vehicle'])->whereYear('created_at', request('year'))->whereMonth('created_at', request('month'))->latest()->paginate(20)->appends(request()->query());
+            $income = Transaction::whereYear('created_at', request('year'))->whereMonth('created_at', request('month'))->sum('total_price');
+            $total_transaction = Transaction::whereYear('created_at', request('year'))->whereMonth('created_at', request('month'))->count();
         }
 
         // $transactions = Transaction::all();
         return view('dashboard.home', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'income' => $income,
+            'total_transaction' => $total_transaction
         ]);
     }
     
@@ -99,7 +99,6 @@ class TransactionController extends Controller
 
     public function export()
     {
-        $time = Carbon::now();
-        return Excel::download(new TransactionsExport, 'Laporan Transaksi ' . $time->monthName . ' ' . $time->year . '.xlsx');
+        return Excel::download(new TransactionsExport(request('year'), request('month')), 'Laporan Transaksi-' . request('month') . '-' . request('year') . '.xlsx');
     }
 }

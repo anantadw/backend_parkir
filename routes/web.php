@@ -3,6 +3,7 @@
 use App\Http\Controllers\ParkerController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportController;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function () {
+    $time = Carbon::now();
+    return redirect()->route('dashboard', ['year' => $time->year, 'month' => $time->month]);
+})->name('index');
 Route::get('/dashboard', [TransactionController::class, 'index'])->name('dashboard');
 Route::get('/export', [TransactionController::class, 'export'])->name('export');
 Route::get('/parkers', [ParkerController::class, 'index'])->name('parker');

@@ -8,15 +8,18 @@ class Tinjauan extends Component
 {
     public $titles = [];
     public $numbers = [];
+    public $types = [];
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title1, $title2, $title3, $number1, $number2, $number3)
+    public function __construct($title1, $title2, $number1, $number2, $type1, $type2)
     {
-        $this->titles = [$title1, $title2, $title3];
-        $this->numbers = [$number1, $number2, $number3];
+        $this->titles = [$title1, $title2];
+        $this->numbers = [$number1, $number2];
+        $this->types = [$type1, $type2];
     }
 
     /**
