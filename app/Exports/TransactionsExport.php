@@ -28,29 +28,30 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     */
     public function collection()
     {
-        return Transaction::with(['vehicle', 'parker'])->whereYear('created_at', $this->year)->whereMonth('created_at', $this->month)->get();
+        return Transaction::with(['vehicle', 'parker', 'parker.street'])->whereYear('created_at', $this->year)->whereMonth('created_at', $this->month)->latest()->get();
     }
 
     public function styles(Worksheet $sheet)
     {
         $sheet->getDefaultRowDimension()->setRowHeight(20);
-        $sheet->getStyle('A:H')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A:H')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A1:H1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:H' . $sheet->getHighestRow())->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A:I')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A:I')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A1:I1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:I' . $sheet->getHighestRow())->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
     }
 
     public function columnWidths(): array
     {
         return [
             'A' => 40,
-            'B' => 15,
-            'C' => 20,
-            'D' => 30,
+            'B' => 40,
+            'C' => 15,
+            'D' => 20,
             'E' => 30,
-            'F' => 20,
-            'G' => 15,
-            'H' => 25,
+            'F' => 30,
+            'G' => 20,
+            'H' => 15,
+            'I' => 25,
         ];
     }
 
@@ -58,6 +59,7 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     {
         return [
             'Juru Parkir',
+            'Jalan',
             'Kendaraan',
             'Plat Nomor',
             'Waktu Masuk',
@@ -72,6 +74,7 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     {
         return [
             $transaction->parker->name,
+            $transaction->parker->street->name,
             $transaction->vehicle->name,
             $transaction->license_plate,
             Date::dateTimeToExcel($transaction->in_time),
@@ -85,8 +88,8 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     public function columnFormats(): array
     {
         return [
-            'D' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm',
             'E' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm',
+            'F' => '[$-id-ID]dddd, dd mmmm yyyy - hh.mm',
         ];
     }
 }

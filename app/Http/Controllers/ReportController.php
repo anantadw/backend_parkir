@@ -24,6 +24,7 @@ class ReportController extends Controller
         }
         
         return view('dashboard.report', [
+            'title' => 'Laporan',
             'transactions' => $transactions,
             'time' => $currentTime,
             'total' => $total

@@ -18,6 +18,7 @@ class ParkerController extends Controller
         // dd($logs);
         // $transactions = Transaction::all();
         return view('dashboard.parker', [
+            'title' => 'Petugas (Juru Parkir)',
             'parkers' => $parkers
         ]);
     }

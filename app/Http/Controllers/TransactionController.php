@@ -25,6 +25,7 @@ class TransactionController extends Controller
 
         // $transactions = Transaction::all();
         return view('dashboard.home', [
+            'title' => 'Dashboard',
             'transactions' => $transactions,
             'income' => $income,
             'total_transaction' => $total_transaction
