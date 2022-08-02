@@ -73,7 +73,8 @@ class TransactionController extends \App\Http\Controllers\Controller
         return response()->json([
             'status' => true,
             'id' => $transaction->id,
-            'vehicle_id' => $transaction->vehicle_id,
+            'location' => $transaction->parker->street->name,
+            'vehicle_name' => $transaction->vehicle->name,
             'vehicle_price' => $transaction->vehicle->price,
             'license_plate' => $transaction->license_plate,
             'in_time' => $transaction->in_time->timestamp,

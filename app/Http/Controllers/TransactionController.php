@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exports\TransactionsExport;
 use App\Models\Transaction;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TransactionController extends Controller
 {
@@ -100,6 +100,13 @@ class TransactionController extends Controller
 
     public function export()
     {
-        return Excel::download(new TransactionsExport(request('year'), request('month')), 'Laporan Transaksi-' . request('month') . '-' . request('year') . '.xlsx');
+        $data = Transaction::whereYear('created_at', request('year'))->whereMonth('created_at', request('month'))->get();
+
+        if ($data->isEmpty()) {
+            Alert::error('Gagal', 'Data transaksi bulan ini kosong.');
+            return redirect()->back();
+        } else {
+            return Excel::download(new TransactionsExport(request('year'), request('month')), 'Laporan Transaksi-' . request('month') . '-' . request('year') . '.xlsx');
+        }
     }
 }

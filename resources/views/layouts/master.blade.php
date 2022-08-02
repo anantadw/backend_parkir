@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <div class="grid grid-cols-12">
         {{-- sidebar --}}
         <aside class="col-span-2 bg-hijau-tua text-cream h-screen px-8 py-12 relative">
