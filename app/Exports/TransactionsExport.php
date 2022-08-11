@@ -34,24 +34,23 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
     public function styles(Worksheet $sheet)
     {
         $sheet->getDefaultRowDimension()->setRowHeight(20);
-        $sheet->getStyle('A:I')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A:I')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A1:I1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:I' . $sheet->getHighestRow())->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A:H')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A:H')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A1:H1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:H' . $sheet->getHighestRow())->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
     }
 
     public function columnWidths(): array
     {
         return [
-            'A' => 40,
-            'B' => 40,
+            'A' => 30,
+            'B' => 30,
             'C' => 15,
             'D' => 20,
             'E' => 30,
             'F' => 30,
             'G' => 20,
-            'H' => 15,
-            'I' => 25,
+            'H' => 20,
         ];
     }
 
@@ -65,7 +64,6 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
             'Waktu Masuk',
             'Waktu Keluar',
             'Lama Waktu',
-            'Status',
             'Total Harga'
         ];
     }
@@ -80,7 +78,6 @@ class TransactionsExport implements FromCollection, WithStyles, WithColumnWidths
             Date::dateTimeToExcel($transaction->in_time),
             ($transaction->out_time == null) ? null : Date::dateTimeToExcel($transaction->out_time),
             ($transaction->out_time == null) ? null : $transaction->out_time->diffInMinutes($transaction->in_time) . ' menit',
-            ($transaction->status == 'in') ? 'Masuk' : 'Keluar',
             $transaction->total_price
         ];
     }

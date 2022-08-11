@@ -35,7 +35,9 @@ class TransactionController extends \App\Http\Controllers\Controller
             'license_plate' => 'required',
         ]);
 
-        $check_transaction = Transaction::where(['license_plate' => $request->license_plate, 'status' => 'in', 'vehicle_id' => $request->vehicle_id])->first();
+        $license_plate = strtoupper($request->license_plate);
+
+        $check_transaction = Transaction::where(['license_plate' => $license_plate, 'status' => 'in', 'vehicle_id' => $request->vehicle_id])->first();
         if ($check_transaction) {
             return response()->json([
                 'status' => false,
@@ -46,7 +48,7 @@ class TransactionController extends \App\Http\Controllers\Controller
         $transaction = new Transaction();
         $transaction->parker_id = $request->parker_id;
         $transaction->vehicle_id = $request->vehicle_id;
-        $transaction->license_plate = $request->license_plate;
+        $transaction->license_plate = $license_plate;
         $transaction->in_time = Carbon::now();
         $transaction->status = 'in';
         if ($transaction->save()) {
